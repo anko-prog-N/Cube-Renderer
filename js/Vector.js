@@ -250,9 +250,9 @@ class Vector {
         var vecX = vec.x;
         var vecY = vec.y;
         var vecZ = vec.z;
-        var rotX = new Vector(cos + vecX * vecX * (1.0 - cos), vecX * vecY * (1.0 - cos) - vecZ * sin, vecX * vecZ * (1.0 - cos) + vecY * sin);
-        var rotY = new Vector(vecY * vecX * (1.0 - cos) + vecZ * sin, cos + vecY * vecY * (1.0 - cos), vecY * vecZ * (1.0 - cos) - vecX * sin);
-        var rotZ = new Vector(vecZ * vecX * (1.0 - cos) - vecY * sin, vecZ * vecY * (1.0 - cos) + vecX * sin, cos + vecZ * vecZ * (1.0 - cos));
+        var rotX = new Vector(cos + vecX ** 2  * (1.0 - cos), vecX * vecY * (1.0 - cos) - vecZ * sin, vecX * vecZ * (1.0 - cos) + vecY * sin);
+        var rotY = new Vector(vecY * vecX * (1.0 - cos) + vecZ * sin, cos + vecY ** 2 * (1.0 - cos), vecY * vecZ * (1.0 - cos) - vecX * sin);
+        var rotZ = new Vector(vecZ * vecX * (1.0 - cos) - vecY * sin, vecZ * vecY * (1.0 - cos) + vecX * sin, cos + vecZ ** 2 * (1.0 - cos));
         var newX = rotX.dotProduct(this);
         var newY = rotY.dotProduct(this);
         var newZ = rotZ.dotProduct(this);

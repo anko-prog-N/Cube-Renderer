@@ -12,6 +12,10 @@ input[type="color"], input[type="checkbox"] {
     cursor: pointer;
 }
 
+input[type="text"] {
+    font-family: 'Roboto Mono', monospace;
+}
+
 input[type="text"]:focus {
     outline: 0;
 }
@@ -162,10 +166,9 @@ button:active {
 /*テキストボックス*/
 .textbox {
     display: inline-block;
-    font-family: 'Roboto', sans-serif;
     transform: translateY(-15%);
     height: 20px;
-    width: 65px;
+    width: 60px;
     background-color: white;
     border: 1px solid gray;
     border-radius: 2px;
