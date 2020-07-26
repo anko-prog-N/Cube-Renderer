@@ -4,7 +4,7 @@ var cubeColorCode = document.getElementById("cube-color-code");
 setTimeout(() => {
     cubeColorPalette.value = cubeColor;
     cubeColorCode.value = cubeColor;
-}, 1);
+}, 10);
 cubeColorPalette.oninput = () => {
     cubeColorCode.value = cubeColorPalette.value.toUpperCase();
     cubeColor = cubeColorCode.value;
@@ -26,7 +26,7 @@ setTimeout(() => {
     strokeColorPalette.value = strokeColor;
     strokeColorCode.value = strokeColor;
     strokeCheckbox.checked = stroke;
-}, 1);
+}, 10);
 strokeColorPalette.oninput = () => {
     strokeColorCode.value = strokeColorPalette.value.toUpperCase();
     strokeColor = strokeColorCode.value;
@@ -51,7 +51,7 @@ setTimeout(() => {
     backgroundColorPalette.value = backgroundColor;
     backgroundColorCode.value = backgroundColor;
     chromaCheckbox.checked = chroma;
-}, 1);
+}, 10);
 backgroundColorPalette.oninput = () => {
     backgroundColorCode.value = backgroundColorPalette.value.toUpperCase();
     backgroundColor = backgroundColorCode.value;
@@ -74,7 +74,7 @@ var rotSpeedInput = document.getElementById("rot-speed-input");
 setTimeout(() => {
     rotSpeedSlider.value = rotSpeed * 100;
     rotSpeedInput.value = Math.floor(rotSpeed * 100) / 100;
-}, 1);
+}, 10);
 rotSpeedSlider.oninput = () => {
     rotSpeed = rotSpeedSlider.value / 100;
     rotSpeedInput.value = rotSpeedSlider.value / 100;
@@ -83,7 +83,7 @@ rotSpeedSlider.oninput = () => {
 rotSpeedInput.addEventListener("change", () => {
     var value;
     if (!Number.isNaN(value = Number(rotSpeedInput.value))) {
-        rotSpeedInput.value = clamp(value, 0, 1);
+        rotSpeedInput.value = clamp(value, 0, 10);
         rotSpeed = rotSpeedInput.value;
         rotSpeedSlider.value = rotSpeedInput.value * 100;
     } else { 
@@ -96,7 +96,7 @@ var rotYInput = document.getElementById("rot-y-input");
 setTimeout(() => {
     rotYSlider.value = axis.rotY * 100;
     rotYInput.value = Math.floor(axis.rotY * 100) / 100;
-}, 1);
+}, 10);
 rotYSlider.oninput = () => {
     axis.rotY = rotYSlider.value / 100;
     rotYInput.value = rotYSlider.value / 100;
@@ -104,7 +104,7 @@ rotYSlider.oninput = () => {
 rotYInput.addEventListener("change", () => {
     var value;
     if (!Number.isNaN(value = Number(rotYInput.value))) {
-        rotYInput.value = clamp(value, -180, 180);
+        rotYInput.value = clamp(value, -180, 1080);
         axis.rotY = rotYInput.value;
         rotYSlider.value = rotYInput.value * 100;
     } else { 
@@ -117,7 +117,7 @@ var rotXInput = document.getElementById("rot-x-input");
 setTimeout(() => {
     rotXSlider.value = axis.rotX * 100;
     rotXInput.value = Math.floor(axis.rotX * 100) / 100;
-}, 1);
+}, 10);
 rotXSlider.oninput = () => {
     axis.rotX = rotXSlider.value / 100;
     rotXInput.value = rotXSlider.value / 100;
