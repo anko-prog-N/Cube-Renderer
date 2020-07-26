@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja" height="100%">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cube Renderer</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header style="margin-bottom: 10px">
+        <img src="logo.png" alt="Cube Renderer">
+    </header>
+    <canvas id="canvas" class="canvas" style="display: inline-block;"></canvas>
+<div id="properties-background">
+        <div class="properties1">
+            <h3 class="property-name">キューブ&nbsp;</h3>
+            <div class="property-items">
+                <div class="property">
+                    <p class="property-tag">色</p>
+                    <input type="color" id="cube-color-palette" name="cube-color-platte">
+                    <input type="text" id="cube-color-code" class="textbox" spellcheck="false" for="cube-color-palette"></p>
+                </div>
+                <div class="property">
+                    <p class="property-tag">線を表示</p>
+                    <input type="checkbox" id="stroke-checkbox">
+                </div>
+                <div class="property">
+                    <p class="property-tag">線の色</p>
+                    <input type="color" id="stroke-color-palette" name="stroke-color-platte">
+                    <input type="text" id="stroke-color-code" class="textbox" spellcheck="false" for="stroke-color-palette">
+                </div>
+            </div>
+        </div>
+        <div class="properties1">
+            <h3 class="property-name">背景</h3>
+            <div class="property-items">
+                <div class="property">
+                    <p class="property-tag">色</p>
+                    <input type="color" id="background-color-palette" name="background-color-platte">
+                    <input type="text" id="background-color-code" class="textbox" spellcheck="false" for="background-color-palette"></p>
+                </div>
+                <div class="property">
+                    <p id="chroma-text" class="property-tag">RAINBOW!!</p>
+                    <input type="checkbox" id="chroma-checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="properties2">
+            <h3 class="property-name">回転</h3>
+            <div class="property-items">
+                <div class="property">
+                    <p class="property-tag" style="margin-right: 62px">回転速度</p>
+                    <input type="range" id="rot-speed-slider" min="0" max="1000">
+                    <input type="text" id="rot-speed-input" class="text-box" spellcheck="false" style="width: 30px">
+                </div>
+                <div class="property">
+                    <p class="property-tag">回転軸の縦軸角度</p>
+                    <input type="range" id="rot-y-slider" min="-18000" max="18000">
+                    <input type="text" id="rot-y-input" class="text-box" spellcheck="false" style="width: 45px">
+                </div>
+                <div class="property">
+                    <p class="property-tag">回転軸の横軸角度</p>
+                    <input type="range" id="rot-x-slider" min="-9000" max="9000">
+                    <input type="text" id="rot-x-input" class="text-box" spellcheck="false" style="width: 40px">
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="stop-button" class="button" style="position: absolute;">ストップ</button>
+            <button id="reset-button" class="button" style="position: absolute; left: 150px">リセット</button>
+        </div>
+    </div>
+
+    <!-- ベクトルクラス -->
+    <script src="Vector.js"></script>
+
+    <!-- 立方体の描画 -->
+    <script src="CubeRenderer.js"></script>
+
+    <!-- 値を変更するUI -->
+    <script src="UserInterface.js"></script>
+</body>
+
+</html>
