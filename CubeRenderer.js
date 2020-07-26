@@ -234,6 +234,8 @@ function draw() {
         propertyItemsArr.forEach(propertyItems => propertyItems.style.border = "2px solid black");
     } else {
         background(backgroundColor);
+
+        //背景の明るさに合わせて文字の色を変更して見やすくする
         var rgb = hexToRGB(backgroundColor);
         if (Math.max(rgb[0], rgb[1], rgb[2]) / 255 < 0.6) {
             texts.forEach(text => text.style.color = "white");
