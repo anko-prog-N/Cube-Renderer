@@ -1,7 +1,10 @@
 var cubeColorPalette = document.getElementById("cube-color-palette");
-var cubeColorCode = document.getElementById("cube-color-code")
-cubeColorPalette.value = cubeColor;
-cubeColorCode.value = cubeColor;
+var cubeColorCode = document.getElementById("cube-color-code");
+//ブラウザの戻るボタンなどを使用してページに移動してきたときに初期化できないので遅延を入れる
+setTimeout(() => {
+    cubeColorPalette.value = cubeColor;
+    cubeColorCode.value = cubeColor;
+}, 1);
 cubeColorPalette.oninput = () => {
     cubeColorCode.value = cubeColorPalette.value.toUpperCase();
     cubeColor = cubeColorCode.value;
@@ -16,14 +19,14 @@ cubeColorCode.addEventListener("change", () => {
     }
 });
 
-
-
 var strokeColorPalette = document.getElementById("stroke-color-palette");
-var strokeColorCode = document.getElementById("stroke-color-code")
+var strokeColorCode = document.getElementById("stroke-color-code");
 var strokeCheckbox = document.getElementById("stroke-checkbox");
-strokeColorPalette.value = strokeColor;
-strokeColorCode.value = strokeColor;
-strokeCheckbox.checked = stroke;
+setTimeout(() => {
+    strokeColorPalette.value = strokeColor;
+    strokeColorCode.value = strokeColor;
+    strokeCheckbox.checked = stroke;
+}, 1);
 strokeColorPalette.oninput = () => {
     strokeColorCode.value = strokeColorPalette.value.toUpperCase();
     strokeColor = strokeColorCode.value;
@@ -41,14 +44,14 @@ strokeCheckbox.oninput = () => {
     stroke = strokeCheckbox.checked;
 }
 
-
-
 var backgroundColorPalette = document.getElementById("background-color-palette");
-var backgroundColorCode = document.getElementById("background-color-code")
+var backgroundColorCode = document.getElementById("background-color-code");
 var chromaCheckbox = document.getElementById("chroma-checkbox");
-backgroundColorPalette.value = backgroundColor;
-backgroundColorCode.value = backgroundColor;
-chromaCheckbox.checked = chroma;
+setTimeout(() => {
+    backgroundColorPalette.value = backgroundColor;
+    backgroundColorCode.value = backgroundColor;
+    chromaCheckbox.checked = chroma;
+}, 1);
 backgroundColorPalette.oninput = () => {
     backgroundColorCode.value = backgroundColorPalette.value.toUpperCase();
     backgroundColor = backgroundColorCode.value;
@@ -68,8 +71,10 @@ chromaCheckbox.oninput = () => {
 
 var rotSpeedSlider = document.getElementById("rot-speed-slider");
 var rotSpeedInput = document.getElementById("rot-speed-input");
-rotSpeedSlider.value = rotSpeed * 100;
-rotSpeedInput.value = Math.floor(rotSpeed * 100) / 100;
+setTimeout(() => {
+    rotSpeedSlider.value = rotSpeed * 100;
+    rotSpeedInput.value = Math.floor(rotSpeed * 100) / 100;
+}, 1);
 rotSpeedSlider.oninput = () => {
     rotSpeed = rotSpeedSlider.value / 100;
     rotSpeedInput.value = rotSpeedSlider.value / 100;
@@ -78,7 +83,7 @@ rotSpeedSlider.oninput = () => {
 rotSpeedInput.addEventListener("change", () => {
     var value;
     if (!Number.isNaN(value = Number(rotSpeedInput.value))) {
-        rotSpeedInput.value = clamp(value, 0, 10);
+        rotSpeedInput.value = clamp(value, 0, 1);
         rotSpeed = rotSpeedInput.value;
         rotSpeedSlider.value = rotSpeedInput.value * 100;
     } else { 
@@ -88,8 +93,10 @@ rotSpeedInput.addEventListener("change", () => {
 
 var rotYSlider = document.getElementById("rot-y-slider");
 var rotYInput = document.getElementById("rot-y-input");
-rotYSlider.value = axis.rotY * 100;
-rotYInput.value = Math.floor(axis.rotY * 100) / 100;
+setTimeout(() => {
+    rotYSlider.value = axis.rotY * 100;
+    rotYInput.value = Math.floor(axis.rotY * 100) / 100;
+}, 1);
 rotYSlider.oninput = () => {
     axis.rotY = rotYSlider.value / 100;
     rotYInput.value = rotYSlider.value / 100;
@@ -107,8 +114,10 @@ rotYInput.addEventListener("change", () => {
 
 var rotXSlider = document.getElementById("rot-x-slider");
 var rotXInput = document.getElementById("rot-x-input");
-rotXSlider.value = axis.rotX * 100;
-rotXInput.value = Math.floor(axis.rotX * 100) / 100;
+setTimeout(() => {
+    rotXSlider.value = axis.rotX * 100;
+    rotXInput.value = Math.floor(axis.rotX * 100) / 100;
+}, 1);
 rotXSlider.oninput = () => {
     axis.rotX = rotXSlider.value / 100;
     rotXInput.value = rotXSlider.value / 100;
