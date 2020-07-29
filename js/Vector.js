@@ -246,7 +246,7 @@ class Vector {
         this.#checkFinite(deg);
         var cos = Math.cos(deg / 180 * Math.PI);
         var sin = Math.sin(deg / 180 * Math.PI);
-        var vec = vec.clone().normalize();
+        vec = vec.clone().normalize();
         var vecX = vec.x;
         var vecY = vec.y;
         var vecZ = vec.z;
