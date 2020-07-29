@@ -238,7 +238,7 @@ class Vector {
     /**
      * このベクトルを他のベクトルを回転軸として回転させます
      * 
-     * @param {Vector} vec 
+     * @param {Vector} vec 軸となるベクトル
      * @return このベクトル
      */
     rotate(vec, deg) {
@@ -246,7 +246,7 @@ class Vector {
         this.#checkFinite(deg);
         var cos = Math.cos(deg / 180 * Math.PI);
         var sin = Math.sin(deg / 180 * Math.PI);
-        var vec = axis.clone().normalize();
+        var vec = vec.clone().normalize();
         var vecX = vec.x;
         var vecY = vec.y;
         var vecZ = vec.z;
