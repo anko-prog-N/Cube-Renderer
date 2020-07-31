@@ -1,13 +1,13 @@
 class Vector {
 
-    x = 0;
-    y = 0;
-    z = 0;
+    #x = 0;
+    #y = 0;
+    #z = 0;
 
     constructor(x = 0, y = 0, z = 0) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.#x = x;
+        this.#y = y;
+        this.#z = z;
     }
 
     //引数が有限数ではなかった場合にエラーを吐く
@@ -25,10 +25,46 @@ class Vector {
     }
 
     /**
+     * ベクトルのX
+     */
+    get x() {
+        return this.#x;
+    }
+
+    set x(newX) { 
+        this.#checkFinite(newX);
+        this.#x = newX;
+    }
+
+    /**
+     * ベクトルのY
+     */
+    get y() {
+        return this.#y;
+    }
+
+    set y(newY) {
+        this.#checkFinite(newY);
+        this.#y = newY;
+    }
+
+    /**
+     * ベクトルのZ
+     */
+    get z() {
+        return this.#z;
+    }
+
+    set z(newZ) {
+        this.#checkFinite(newZ);
+        this.#z = newZ;
+    }
+
+    /**
      * ベクトルの長さ
      */
     get length() {
-        return Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2);
+        return Math.sqrt(this.#x ** 2 + this.#y ** 2 + this.#z ** 2);
     }
 
     set length(newLength) {
@@ -40,7 +76,7 @@ class Vector {
      * 横軸の角度
      */
     get rotX() {
-        return Math.atan2(this.y, Math.sqrt(this.x ** 2 + this.z ** 2)) * 180 / Math.PI;
+        return Math.atan2(this.#y, Math.sqrt(this.#x ** 2 + this.#z ** 2)) * 180 / Math.PI;
     }
 
     set rotX(newRotX) {
@@ -56,14 +92,14 @@ class Vector {
      * 縦軸の角度
      */
     get rotY() {
-        return Math.atan2(this.z, this.x) * 180 / Math.PI;
+        return Math.atan2(this.#z, this.#x) * 180 / Math.PI;
     }
 
     set rotY(newRotY) {
         this.#checkFinite(newRotY);
-        var sqrt = Math.sqrt(this.x ** 2 + this.z ** 2);
-        this.x = Math.cos(newRotY / 180 * Math.PI) * sqrt;
-        this.z = Math.sin(newRotY / 180 * Math.PI) * sqrt;
+        var sqrt = Math.sqrt(this.#x ** 2 + this.#z ** 2);
+        this.#x = Math.cos(newRotY / 180 * Math.PI) * sqrt;
+        this.#z = Math.sin(newRotY / 180 * Math.PI) * sqrt;
     }
 
     /**
@@ -74,7 +110,7 @@ class Vector {
      */
     setX(newX) {
         this.#checkFinite(newX);
-        this.x = newX;
+        this.#x = newX;
         return this;
     }
 
@@ -86,7 +122,7 @@ class Vector {
      */
     setY(newY) {
         this.#checkFinite(newY);
-        this.y = newY;
+        this.#y = newY;
         return this;
     }
 
@@ -98,7 +134,7 @@ class Vector {
      */
     setZ(newZ) {
         this.#checkFinite(newZ);
-        this.z = newZ;
+        this.#z = newZ;
         return this;
     }
 
@@ -143,9 +179,9 @@ class Vector {
      */
     add(vec) {
         this.#checkVector(vec);
-        this.x += vec.x;
-        this.y += vec.y;
-        this.z += vec.z;
+        this.#x += vec.x;
+        this.#y += vec.y;
+        this.#z += vec.z;
         return this;
     }
 
@@ -157,9 +193,9 @@ class Vector {
      */
     subtract(vec) {
         this.#checkVector(vec);
-        this.x -= vec.x;
-        this.y -= vec.y;
-        this.z -= vec.z;
+        this.#x -= vec.x;
+        this.#y -= vec.y;
+        this.#z -= vec.z;
         return this;
     }
 
@@ -170,9 +206,9 @@ class Vector {
      */
     normalize() {
         var length = this.length;
-        this.x /= length;
-        this.y /= length;
-        this.z /= length;
+        this.#x /= length;
+        this.#y /= length;
+        this.#z /= length;
         return this;
     }
 
@@ -184,9 +220,9 @@ class Vector {
      */
     multiply(m) {
         this.#checkFinite(m);
-        this.x *= m;
-        this.y *= m;
-        this.z *= m;
+        this.#x *= m;
+        this.#y *= m;
+        this.#z *= m;
         return this;
     }
 
@@ -196,7 +232,7 @@ class Vector {
      * @return 同じ値を持った別のベクトルオブジェクト
      */
     clone() {
-        return new Vector(this.x, this.y, this.z);
+        return new Vector(this.#x, this.#y, this.#z);
     }
 
     /**
@@ -207,7 +243,7 @@ class Vector {
      */
     distance(vec) {
         this.#checkVector(vec);
-        return Math.sqrt((vec.x - this.x) ** 2 + (vec.y - this.y) ** 2 + (vec.z - this.z) ** 2);
+        return Math.sqrt((vec.x - this.#x) ** 2 + (vec.y - this.#y) ** 2 + (vec.z - this.#z) ** 2);
     }
 
     /**
@@ -218,7 +254,7 @@ class Vector {
      */
     dotProduct(vec) {
         this.#checkVector(vec);
-        return this.x * vec.x + this.y * vec.y + this.z * vec.z;
+        return this.#x * vec.x + this.#y * vec.y + this.#z * vec.z;
     }
 
     /**
@@ -229,9 +265,9 @@ class Vector {
      */
     crossProduct(vec) {
         this.#checkVector(vec);
-        var newX = this.y * vec.z - vec.y * this.z;
-        var newY = this.z * vec.x - vec.z * this.x;
-        var newZ = this.x * vec.y - vec.x * this.y;
+        var newX = this.#y * vec.z - vec.y * this.#z;
+        var newY = this.#z * vec.x - vec.z * this.#x;
+        var newZ = this.#x * vec.y - vec.x * this.#y;
         return this.setX(newX).setY(newY).setZ(newZ);
     }
 

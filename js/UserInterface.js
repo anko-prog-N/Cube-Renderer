@@ -1,3 +1,5 @@
+//inputタグのイベントハンドリング
+
 var cubeColorPalette = document.getElementById("cube-color-palette");
 var cubeColorCode = document.getElementById("cube-color-code");
 //ブラウザの戻るボタンなどを使用してページに移動してきたときに初期化できないので遅延を入れる

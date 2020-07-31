@@ -53,7 +53,7 @@ var chromaGreen = 0;
 var chromaBlue = 0;
 
 //chromaが有効なとき何色から何色に変化しているかを表す(0~6)
-//red->yellow->green->cyan->blue->magenta->chromaRed...
+//red->yellow->green->cyan->blue->magenta->red...
 var gradationMode = 0;
 
 //キューブの回転軸
@@ -91,6 +91,7 @@ function heron(a, b, c) {
     return Math.sqrt(s * (s - a) * (s - b) * (s - c));
 }
 
+//入力されたnumがmin以下だった場合minを返し、max以上だった場合maxを返す
 function clamp(num, min, max) { 
     return Math.max(min, Math.min(max, num));
 }
@@ -205,6 +206,7 @@ function draw() {
     var propertyItemsArr = Array.prototype.slice.call(document.getElementsByClassName("property-items"));
     var texts = propertyName.concat(propertyTag);
     if (chroma) {
+        //チェックボックスのテキストと背景のスタイル、キューブの色を変化させる
         if (gradationMode == 0 && chromaGreen < 255 && (chromaGreen += 2.55) >= 255) {
             gradationMode++;
         } else if (gradationMode == 1 && chromaGreen >= 255 && (chromaRed -= 2.55) <= 0) {
@@ -219,7 +221,7 @@ function draw() {
             gradationMode = 0;
         }
         var color = rgbToHex(chromaRed, chromaGreen, chromaBlue);
-        background(color);
+        //色合いを取得し、グラデーションを背景をチェックボックスのテキストに適用する
         var hue = getHue(color);
         var chromaText = document.getElementById("chroma-text");
         chromaText.style.background = `linear-gradient(270deg, hsl(${(hue + 315) % 360}, 100%, 60%), hsl(${(hue + 270) % 360}, 100%, 60%), hsl(${(hue + 225) % 360}, 100%, 60%), hsl(${(hue + 180) % 360}, 100%, 60%), hsl(${(hue + 135) % 360}, 100%, 60%), hsl(${(hue + 90) % 360}, 100%, 60%), hsl(${(hue + 45) % 360}, 100%, 60%), hsl(${hue}, 100%, 60%))`;
@@ -253,6 +255,8 @@ function draw() {
             propertyItemsArr.forEach(propertyItems => propertyItems.style.border = "2px solid black");
         }
     }
+
+    //座標軸をキャンバスの中心にする
     CONTEXT.save();
     CONTEXT.translate(CANVAS.width / 2, CANVAS.height / 2);
     if (!stop) { 
@@ -290,5 +294,6 @@ function draw() {
             }
         }
     });
+    //座標軸を元に戻す
     CONTEXT.restore();
 }
