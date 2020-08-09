@@ -7,7 +7,9 @@ const FRAME_RATE = 60;
 
 var frameCount = 0;
 
+//キューブの中心から視点までの距離
 var cameraDistance = 10;
+//キューブの中心から投射面までの距離
 var canvasDistance = 7;
 
 var stop = false;
@@ -265,7 +267,7 @@ function draw() {
     FACES.forEach(face => {
 
         //浮遊感を出す
-        face = face.map(vec => vec.clone().add(new Vector(0, Math.sin((frameCount + 90) % 360 * Math.PI / 180), 0)));
+        face = face.map(vec => vec.clone().add(new Vector(0, Math.cos((frameCount) % 360 * Math.PI / 180), 0)));
 
         //面の表裏判定
         var center = new Vector((face[0].x + face[2].x) / 2, (face[0].y + face[2].y) / 2, (face[0].z + face[2].z) / 2);
