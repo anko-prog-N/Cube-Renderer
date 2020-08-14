@@ -81,10 +81,10 @@ class Vector {
 
     set rotX(newRotX) {
         this.#checkFinite(newRotX);
-        var div = Math.cos(newRotX / 180 * Math.PI);
-        var newX = Math.cos(this.rotY / 180 * Math.PI) * this.length * div;
-        var newY = Math.sin(newRotX / 180 * Math.PI) * this.length;
-        var newZ = Math.sin(this.rotY / 180 * Math.PI) * this.length * div;
+        let div = Math.cos(newRotX / 180 * Math.PI);
+        let newX = Math.cos(this.rotY / 180 * Math.PI) * this.length * div;
+        let newY = Math.sin(newRotX / 180 * Math.PI) * this.length;
+        let newZ = Math.sin(this.rotY / 180 * Math.PI) * this.length * div;
         this.setX(newX).setY(newY).setZ(newZ);
     }
 
@@ -97,7 +97,7 @@ class Vector {
 
     set rotY(newRotY) {
         this.#checkFinite(newRotY);
-        var sqrt = Math.sqrt(this.#x ** 2 + this.#z ** 2);
+        let sqrt = Math.sqrt(this.#x ** 2 + this.#z ** 2);
         this.#x = Math.cos(newRotY / 180 * Math.PI) * sqrt;
         this.#z = Math.sin(newRotY / 180 * Math.PI) * sqrt;
     }
@@ -205,7 +205,7 @@ class Vector {
      * @return このベクトル
      */
     normalize() {
-        var length = this.length;
+        let length = this.length;
         this.#x /= length;
         this.#y /= length;
         this.#z /= length;
@@ -265,9 +265,9 @@ class Vector {
      */
     crossProduct(vec) {
         this.#checkVector(vec);
-        var newX = this.#y * vec.z - vec.y * this.#z;
-        var newY = this.#z * vec.x - vec.z * this.#x;
-        var newZ = this.#x * vec.y - vec.x * this.#y;
+        let newX = this.#y * vec.z - vec.y * this.#z;
+        let newY = this.#z * vec.x - vec.z * this.#x;
+        let newZ = this.#x * vec.y - vec.x * this.#y;
         return this.setX(newX).setY(newY).setZ(newZ);
     }
 
@@ -280,18 +280,18 @@ class Vector {
     rotate(vec, deg) {
         this.#checkVector(vec);
         this.#checkFinite(deg);
-        var cos = Math.cos(deg / 180 * Math.PI);
-        var sin = Math.sin(deg / 180 * Math.PI);
+        let cos = Math.cos(deg / 180 * Math.PI);
+        let sin = Math.sin(deg / 180 * Math.PI);
         vec = vec.clone().normalize();
-        var vecX = vec.x;
-        var vecY = vec.y;
-        var vecZ = vec.z;
-        var rotX = new Vector(cos + vecX ** 2  * (1.0 - cos), vecX * vecY * (1.0 - cos) - vecZ * sin, vecX * vecZ * (1.0 - cos) + vecY * sin);
-        var rotY = new Vector(vecY * vecX * (1.0 - cos) + vecZ * sin, cos + vecY ** 2 * (1.0 - cos), vecY * vecZ * (1.0 - cos) - vecX * sin);
-        var rotZ = new Vector(vecZ * vecX * (1.0 - cos) - vecY * sin, vecZ * vecY * (1.0 - cos) + vecX * sin, cos + vecZ ** 2 * (1.0 - cos));
-        var newX = rotX.dotProduct(this);
-        var newY = rotY.dotProduct(this);
-        var newZ = rotZ.dotProduct(this);
+        let vecX = vec.x;
+        let vecY = vec.y;
+        let vecZ = vec.z;
+        let rotX = new Vector(cos + vecX ** 2  * (1.0 - cos), vecX * vecY * (1.0 - cos) - vecZ * sin, vecX * vecZ * (1.0 - cos) + vecY * sin);
+        let rotY = new Vector(vecY * vecX * (1.0 - cos) + vecZ * sin, cos + vecY ** 2 * (1.0 - cos), vecY * vecZ * (1.0 - cos) - vecX * sin);
+        let rotZ = new Vector(vecZ * vecX * (1.0 - cos) - vecY * sin, vecZ * vecY * (1.0 - cos) + vecX * sin, cos + vecZ ** 2 * (1.0 - cos));
+        let newX = rotX.dotProduct(this);
+        let newY = rotY.dotProduct(this);
+        let newZ = rotZ.dotProduct(this);
         return this.setX(newX).setY(newY).setZ(newZ);
     }
 

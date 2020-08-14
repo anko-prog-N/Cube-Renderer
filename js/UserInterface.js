@@ -1,7 +1,7 @@
 //inputタグのイベントハンドリング
 
-var cubeColorPalette = document.getElementById("cube-color-palette");
-var cubeColorCode = document.getElementById("cube-color-code");
+let cubeColorPalette = document.getElementById("cube-color-palette");
+let cubeColorCode = document.getElementById("cube-color-code");
 //ブラウザの戻るボタンなどを使用してページに移動してきたときに初期化できないので遅延を入れる
 setTimeout(() => {
     cubeColorPalette.value = cubeColor;
@@ -21,9 +21,9 @@ cubeColorCode.addEventListener("change", () => {
     }
 });
 
-var strokeColorPalette = document.getElementById("stroke-color-palette");
-var strokeColorCode = document.getElementById("stroke-color-code");
-var strokeCheckbox = document.getElementById("stroke-checkbox");
+let strokeColorPalette = document.getElementById("stroke-color-palette");
+let strokeColorCode = document.getElementById("stroke-color-code");
+let strokeCheckbox = document.getElementById("stroke-checkbox");
 setTimeout(() => {
     strokeColorPalette.value = strokeColor;
     strokeColorCode.value = strokeColor;
@@ -46,9 +46,9 @@ strokeCheckbox.oninput = () => {
     stroke = strokeCheckbox.checked;
 }
 
-var backgroundColorPalette = document.getElementById("background-color-palette");
-var backgroundColorCode = document.getElementById("background-color-code");
-var chromaCheckbox = document.getElementById("chroma-checkbox");
+let backgroundColorPalette = document.getElementById("background-color-palette");
+let backgroundColorCode = document.getElementById("background-color-code");
+let chromaCheckbox = document.getElementById("chroma-checkbox");
 setTimeout(() => {
     backgroundColorPalette.value = backgroundColor;
     backgroundColorCode.value = backgroundColor;
@@ -71,8 +71,8 @@ chromaCheckbox.oninput = () => {
     setChroma(chromaCheckbox.checked);
 }
 
-var rotSpeedSlider = document.getElementById("rot-speed-slider");
-var rotSpeedInput = document.getElementById("rot-speed-input");
+let rotSpeedSlider = document.getElementById("rot-speed-slider");
+let rotSpeedInput = document.getElementById("rot-speed-input");
 setTimeout(() => {
     rotSpeedSlider.value = rotSpeed * 100;
     rotSpeedInput.value = Math.floor(rotSpeed * 100) / 100;
@@ -83,7 +83,7 @@ rotSpeedSlider.oninput = () => {
 }
 //typeをnumberにすると入力完了時に値取得がうまくいかなかったのでtextにして少し強引に数値を取得している
 rotSpeedInput.addEventListener("change", () => {
-    var value;
+    let value;
     if (!Number.isNaN(value = Number(rotSpeedInput.value))) {
         rotSpeedInput.value = clamp(value, 0, 10);
         rotSpeed = rotSpeedInput.value;
@@ -93,8 +93,8 @@ rotSpeedInput.addEventListener("change", () => {
     }
 })
 
-var rotYSlider = document.getElementById("rot-y-slider");
-var rotYInput = document.getElementById("rot-y-input");
+let rotYSlider = document.getElementById("rot-y-slider");
+let rotYInput = document.getElementById("rot-y-input");
 setTimeout(() => {
     rotYSlider.value = axis.rotY * 100;
     rotYInput.value = Math.floor(axis.rotY * 100) / 100;
@@ -104,7 +104,7 @@ rotYSlider.oninput = () => {
     rotYInput.value = rotYSlider.value / 100;
 }
 rotYInput.addEventListener("change", () => {
-    var value;
+    let value;
     if (!Number.isNaN(value = Number(rotYInput.value))) {
         rotYInput.value = clamp(value, -180, 1080);
         axis.rotY = rotYInput.value;
@@ -114,8 +114,8 @@ rotYInput.addEventListener("change", () => {
     }
 });
 
-var rotXSlider = document.getElementById("rot-x-slider");
-var rotXInput = document.getElementById("rot-x-input");
+let rotXSlider = document.getElementById("rot-x-slider");
+let rotXInput = document.getElementById("rot-x-input");
 setTimeout(() => {
     rotXSlider.value = axis.rotX * 100;
     rotXInput.value = Math.floor(axis.rotX * 100) / 100;
@@ -125,7 +125,7 @@ rotXSlider.oninput = () => {
     rotXInput.value = rotXSlider.value / 100;
 } 
 rotXInput.addEventListener("change", () => {
-    var value;
+    let value;
     if (!Number.isNaN(value = Number(rotXInput.value))) {
         rotXInput.value = clamp(value, -90, 90);
         axis.rotX = rotXInput.value;
@@ -135,7 +135,7 @@ rotXInput.addEventListener("change", () => {
     }
 });
 
-var stopButton = document.getElementById("stop-button");
+let stopButton = document.getElementById("stop-button");
 stopButton.onclick = () => { 
     stop = !stop;
     if (stop) {

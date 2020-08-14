@@ -5,17 +5,17 @@ const CONTEXT = CANVAS.getContext("2d");
 
 const FRAME_RATE = 60;
 
-var frameCount = 0;
+let frameCount = 0;
 
 //キューブの中心から視点までの距離
-var cameraDistance = 10;
+let cameraDistance = 10;
 //キューブの中心から投射面までの距離
-var canvasDistance = 7;
+let canvasDistance = 7;
 
-var stop = false;
+let stop = false;
 
 //回転速度
-var rotSpeed = 1;
+let rotSpeed = 1;
 
 //立方体の8つの頂点を立方体の中心を0, 0, 0とした相対座標
 const CORNERS = [
@@ -40,23 +40,23 @@ const Z_PRIME = [CORNERS[5], CORNERS[4], CORNERS[3], CORNERS[0]];
 const FACES = [X_FACE, X_PRIME, Y_FACE, Y_PRIME, Z_FACE, Z_PRIME];
 
 //背景色 chromaが有効な場合は使用されない
-var backgroundColor = rgbToHex(parseInt(Math.random() * 256), parseInt(Math.random() * 256), parseInt(Math.random() * 256)).toUpperCase();
+let backgroundColor = rgbToHex(parseInt(Math.random() * 256), parseInt(Math.random() * 256), parseInt(Math.random() * 256)).toUpperCase();
 
-var cubeColor = "#FFFFFF";
-var strokeColor = "#000000";
+let cubeColor = "#FFFFFF";
+let strokeColor = "#000000";
 
-var stroke = false;
+let stroke = false;
 
 //chroma(虹色のグラデーション)が有効かどうか
-var chroma = false;
+let chroma = false;
 
-var chromaRed = 0;
-var chromaGreen = 0;
-var chromaBlue = 0;
+let chromaRed = 0;
+let chromaGreen = 0;
+let chromaBlue = 0;
 
 //chromaが有効なとき何色から何色に変化しているかを表す(0~6)
 //red->yellow->green->cyan->blue->magenta->red...
-var gradationMode = 0;
+let gradationMode = 0;
 
 //キューブの回転軸
 const axis = new Vector(0, 1, 0);
@@ -77,7 +77,7 @@ function setChroma(flag) {
         chromaGreen = 0;
         chromaBlue = 0;
     } else { 
-        var chromaText = document.getElementById("chroma-text");
+        let chromaText = document.getElementById("chroma-text");
         chromaText.style.background = "";
         chromaText.style.webkitBackgroundClip = "";
         chromaText.style.webkitTextFillColor = "";
@@ -89,7 +89,7 @@ function setChroma(flag) {
 
 //ヘロンの公式を使って三角形の面積を求める
 function heron(a, b, c) {
-    var s = (a + b + c) / 2;
+    let s = (a + b + c) / 2;
     return Math.sqrt(s * (s - a) * (s - b) * (s - c));
 }
 
@@ -100,15 +100,15 @@ function clamp(num, min, max) {
 
 //カメラ側を光源とし、面の明るさを計算する
 function calcBright(vec1, vec2, vec3, vec4) {
-    var vertexes = [vec1, vec2, vec3, vec4].map(vec => vec.clone().setZ(0));
+    let vertexes = [vec1, vec2, vec3, vec4].map(vec => vec.clone().setZ(0));
 
     //正射影を計算する
-    var a = vertexes[0].distance(vertexes[1]);
-    var b = vertexes[1].distance(vertexes[2]);
-    var c = vertexes[2].distance(vertexes[3]);
-    var d = vertexes[3].distance(vertexes[0]);
-    var e = vertexes[0].distance(vertexes[2]);
-    var area = heron(a, b, e) + heron(c, d, e);
+    let a = vertexes[0].distance(vertexes[1]);
+    let b = vertexes[1].distance(vertexes[2]);
+    let c = vertexes[2].distance(vertexes[3]);
+    let d = vertexes[3].distance(vertexes[0]);
+    let e = vertexes[0].distance(vertexes[2]);
+    let area = heron(a, b, e) + heron(c, d, e);
 
     //調整を行って値を返す
     return Math.min(0.9, area / 10 + 0.5);
@@ -116,15 +116,15 @@ function calcBright(vec1, vec2, vec3, vec4) {
 
 //3次元座標をキャンバスに描くためのxとyだけの2次元座標に変換する
 function convert2D(local) {
-    var scale = canvasDistance / local.clone().setZ(cameraDistance + local.z).length;
-    var x = local.x * scale;
-    var y = local.y * scale;
+    let scale = canvasDistance / local.clone().setZ(cameraDistance + local.z).length;
+    let x = local.x * scale;
+    let y = local.y * scale;
     return new Vector(x, y, 0);
 }
 
 //16進数カラーコードかどうか確かめる
 function isHexColorCode(colorCode) { 
-    var matchResult;
+    let matchResult;
     return (matchResult = colorCode.match(/#[0-9A-F]{6}/i)) && matchResult[0] === colorCode;
 }
 
@@ -153,7 +153,7 @@ function rgbToHex(r, g, b) {
 //色に明るさを足す
 function addBright(color, bright) { 
     if (isHexColorCode(color)) { 
-        var rgb = hexToRGB(color).map(i => Math.min(255, i + bright));
+        let rgb = hexToRGB(color).map(i => Math.min(255, i + bright));
         return rgbToHex(rgb[0], rgb[1], rgb[2]);
     }
     return "#000000";
@@ -161,14 +161,14 @@ function addBright(color, bright) {
 
 //色合いを取得
 function getHue(color) { 
-    var rgb;
+    let rgb;
     if (isHexColorCode(color) && (rgb = hexToRGB(color))) { 
-        var min = Math.min(rgb[0], rgb[1], rgb[2]);
-        var max = Math.max(rgb[0], rgb[1], rgb[2]);
+        let min = Math.min(rgb[0], rgb[1], rgb[2]);
+        let max = Math.max(rgb[0], rgb[1], rgb[2]);
         if (min == max) {
             return 0;
         }
-        var hue = 0;
+        let hue = 0;
         if (max == rgb[0]) {
             hue = (rgb[1] - rgb[2]) / (max - min);
         } else if (max == rgb[1]) {
@@ -195,18 +195,18 @@ function draw() {
     CANVAS.height = CANVAS.width;
 
     //UIの高さがキャンバスより低い場合に高さをそろえる
-    var propertiesBackground = document.getElementById("properties-background");
-    var propertiesHeight = parseFloat(getComputedStyle(propertiesBackground).height);
+    let propertiesBackground = document.getElementById("properties-background");
+    let propertiesHeight = parseFloat(getComputedStyle(propertiesBackground).height);
     if (propertiesHeight < CANVAS.height) {
         propertiesBackground.style.height = `${CANVAS.height - 1}px`;
     } else {
         propertiesBackground.style.height = "auto";
     }
-    var propertyName = Array.prototype.slice.call(document.getElementsByClassName("property-name"));
-    var propertyTag = Array.prototype.slice.call(document.getElementsByClassName("property-tag"));
-    var buttons = Array.prototype.slice.call(document.getElementsByTagName("button"));
-    var propertyItemsArr = Array.prototype.slice.call(document.getElementsByClassName("property-items"));
-    var texts = propertyName.concat(propertyTag);
+    let propertyName = Array.prototype.slice.call(document.getElementsByClassName("property-name"));
+    let propertyTag = Array.prototype.slice.call(document.getElementsByClassName("property-tag"));
+    let buttons = Array.prototype.slice.call(document.getElementsByTagName("button"));
+    let propertyItemsArr = Array.prototype.slice.call(document.getElementsByClassName("property-items"));
+    let texts = propertyName.concat(propertyTag);
     if (chroma) {
         //チェックボックスのテキストと背景のスタイル、キューブの色を変化させる
         if (gradationMode == 0 && chromaGreen < 255 && (chromaGreen += 2.55) >= 255) {
@@ -222,10 +222,10 @@ function draw() {
         } else if (gradationMode == 5 && chromaRed >= 255 && (chromaBlue -= 2.55) <= 0) {
             gradationMode = 0;
         }
-        var color = rgbToHex(chromaRed, chromaGreen, chromaBlue);
+        let color = rgbToHex(chromaRed, chromaGreen, chromaBlue);
         //色合いを取得し、グラデーションを背景をチェックボックスのテキストに適用する
-        var hue = getHue(color);
-        var chromaText = document.getElementById("chroma-text");
+        let hue = getHue(color);
+        let chromaText = document.getElementById("chroma-text");
         chromaText.style.background = `linear-gradient(270deg, hsl(${(hue + 315) % 360}, 100%, 60%), hsl(${(hue + 270) % 360}, 100%, 60%), hsl(${(hue + 225) % 360}, 100%, 60%), hsl(${(hue + 180) % 360}, 100%, 60%), hsl(${(hue + 135) % 360}, 100%, 60%), hsl(${(hue + 90) % 360}, 100%, 60%), hsl(${(hue + 45) % 360}, 100%, 60%), hsl(${hue}, 100%, 60%))`;
         chromaText.style.webkitBackgroundClip = "text";
         chromaText.style.webkitTextFillColor = "transparent";
@@ -240,7 +240,7 @@ function draw() {
         background(backgroundColor);
 
         //背景の明るさに合わせて文字の色を変更して見やすくする
-        var rgb = hexToRGB(backgroundColor);
+        let rgb = hexToRGB(backgroundColor);
         if (Math.max(rgb[0], rgb[1], rgb[2]) / 255 < 0.6) {
             texts.forEach(text => text.style.color = "white");
             buttons.forEach(button => {
@@ -270,17 +270,17 @@ function draw() {
         face = face.map(vec => vec.clone().add(new Vector(0, Math.cos((frameCount) % 360 * Math.PI / 180), 0)));
 
         //面の表裏判定
-        var center = new Vector((face[0].x + face[2].x) / 2, (face[0].y + face[2].y) / 2, (face[0].z + face[2].z) / 2);
-        var vec1 = face[1].clone().subtract(face[0]);
-        var vec2 = face[2].clone().subtract(face[0]);
+        let center = new Vector((face[0].x + face[2].x) / 2, (face[0].y + face[2].y) / 2, (face[0].z + face[2].z) / 2);
+        let vec1 = face[1].clone().subtract(face[0]);
+        let vec2 = face[2].clone().subtract(face[0]);
         if (0 < center.clone().setZ(center.z + 10).dotProduct(vec1.crossProduct(vec2))) {
 
             //座標を2次元に変換して面を描く
             CONTEXT.beginPath();
-            var scale = Math.sqrt(CANVAS.width ** 2 + CANVAS.height ** 2) / 6;
-            var pos = convert2D(face[0]).multiply(scale);
+            let scale = Math.sqrt(CANVAS.width ** 2 + CANVAS.height ** 2) / 6;
+            let pos = convert2D(face[0]).multiply(scale);
             CONTEXT.moveTo(pos.x, pos.y);
-            for (var i = 1; i < 4; i++) {
+            for (let i = 1; i < 4; i++) {
                 pos = convert2D(face[i]).multiply(scale);
                 CONTEXT.lineTo(pos.x, pos.y);
             }
